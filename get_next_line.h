@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 13:54:01 by vsozonof          #+#    #+#             */
-/*   Updated: 2022/12/05 03:26:52 by vsozonof         ###   ########.fr       */
+/*   Updated: 2022/12/10 17:48:44 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE
+#  define BUFFER_SIZE 1
 # endif
 
 # include <stdlib.h>
