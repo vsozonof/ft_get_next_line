@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:00 by vsozonof          #+#    #+#             */
-/*   Updated: 2022/12/10 18:03:34 by vsozonof         ###   ########.fr       */
+/*   Updated: 2022/12/11 15:59:04 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,47 +15,94 @@
 char	*get_next_line(int fd)
 {
 	static int	counter;
-	char		*line;
+	static char	*line;
+	static char	*stash = NULL;
 
-	line = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!line)
+	if (BUFFER_SIZE == 0)
 		return (NULL);
-	counter = read(fd, line, BUFFER_SIZE);
-	if (counter == 0)
-		return (NULL);
-	line[counter] = '\0';
+	line = read_and_fill_stash(fd, stash);
 	return (line);
-
 }
 
+char	*read_and_fill_stash(int fd, char *stash)
+{
+	static char		tmp[BUFFER_SIZE + 1];
+	static int		counter;
 
+	while (ft_find_newline(tmp) < 0)
+	{
+		counter = read(fd, tmp, BUFFER_SIZE);
+		tmp[BUFFER_SIZE + 1] = '\0';
+		stash = free_and_join_stash(stash, tmp);
+	}
+	return (stash);
+}
 
-/* 		/!\ My GNL main /!\ 
-	How to use the function :
+char	*free_and_join_stash(char *stash, char *tmp)
+{
+	static char	*new_stash;
+
+	new_stash = ft_strjoin(stash, tmp);
+	free (stash);
+	return (new_stash);
+}
+
+char	*extract_from_stash(char *stash, char *tmp)
+{
 	
-	- replace "test.c" with the name of the 
-	file you are trying to read
-	
-	- Compile with the following command :
-	"gcc -D BUFFER_SIZE=N get_next_line.c get_next_line_utils.c"
-	
-	-> you must replace N with a number of your choice, it will
-	be used to define the size of the buffer.
-	-> BUFFER_SIZE will be set to 0 by default */
+}
 
 int	main(void)
 {
 	int		fd;
 	char	*str;
 
-	fd = open("test.c", O_RDWR);
-	while (42)
-	{
-		str = get_next_line(fd);
-		if (str == NULL)
-			break ;
-		printf("%s\n", str);
-		free (str);
-	}
+	fd = open("test", O_RDWR);
+	str = get_next_line(fd);
+	printf("%s", str);
+
+	// while (42)
+	// {
+	// 	str = get_next_line(fd);
+	// 	if (str == NULL)
+	// 		break ;
+	// 	printf("--> %s\n", str);
+	// 	free (str);
+	// }
 	return (0);
 }
+
+
+
+/* 		
+		/!\ GNL main /!\
+	Comment utiliser la fonction :
+
+	- remplacer "test.c" pa le nom du fichier
+	que vous souhaitez lire
+
+	- Compiler avec la commande suivante : 
+	"gcc -D BUFFER_SIZE=N get_next_line.c get_next_line_utils.c"
+
+	-> 'n' sera le nombre qui servira a definir la taille de buffer
+	a utiliser
+
+	-> la taille de buffer par defaut est 0.	
+*/
+
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*str;
+
+// 	fd = open("test.c", O_RDWR);
+// 	while (42)
+// 	{
+// 		str = get_next_line(fd);
+// 		if (str == NULL)
+// 			break ;
+// 		printf("%s\n", str);
+// 		free (str);
+// 	}
+// 	return (0);
+// }

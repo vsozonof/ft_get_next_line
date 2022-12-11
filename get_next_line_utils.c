@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:05 by vsozonof          #+#    #+#             */
-/*   Updated: 2022/12/04 21:47:43 by vsozonof         ###   ########.fr       */
+/*   Updated: 2022/12/11 15:03:21 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,22 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
+	if (!(str))
+		return (0);
 	while (str[i])
 		i++;
 	return (i);
+}
+
+int	ft_find_newline(char *s)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i])
+	{
+		if (s[i] == '\n')
+			return (i + 1);
+	}
+	return (-1);
 }
