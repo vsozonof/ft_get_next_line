@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:00 by vsozonof          #+#    #+#             */
-/*   Updated: 2022/12/11 15:59:04 by vsozonof         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:38:11 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,14 @@ int	main(void)
 	char	*str;
 
 	fd = open("test", O_RDWR);
-	str = get_next_line(fd);
-	printf("%s", str);
-
-	// while (42)
-	// {
-	// 	str = get_next_line(fd);
-	// 	if (str == NULL)
-	// 		break ;
-	// 	printf("--> %s\n", str);
-	// 	free (str);
-	// }
+	while (42)
+	{
+		str = get_next_line(fd);
+		if (str == NULL)
+			break ;
+		printf("--> %s\n", str);
+		free (str);
+	}
 	return (0);
 }
 
