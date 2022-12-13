@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:05 by vsozonof          #+#    #+#             */
-/*   Updated: 2022/12/12 16:03:09 by vsozonof         ###   ########.fr       */
+/*   Updated: 2022/12/13 11:01:29 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,25 @@ int	ft_find_newline(char *s)
 	int	i;
 
 	i = -1;
+	if (!(s))
+		return (0);
 	while (s[++i])
 	{
 		if (s[i] == '\n')
-			return (i + 1);
+			return (1);
 	}
-	return (-1);
+	return (0);
 }
 
-int	ft_len_checker(const char *s, unsigned int start, size_t len)
-{
-	size_t	i;
+// int	ft_len_checker(const char *s, unsigned int start, size_t len)
+// {
+// 	size_t	i;
 
-	i = -1;
-	while (++i < len && s[start])
-		start++;
-	return (i);
-}
+// 	i = -1;
+// 	while (++i < len && s[start])
+// 		start++;
+// 	return (i);
+// }
 
 // char	*ft_substr(char const *s, unsigned int start, size_t len)
 // {

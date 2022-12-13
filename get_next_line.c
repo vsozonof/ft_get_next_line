@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:00 by vsozonof          #+#    #+#             */
-/*   Updated: 2022/12/12 15:38:11 by vsozonof         ###   ########.fr       */
+/*   Updated: 2022/12/13 11:15:38 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*get_next_line(int fd)
 {
-	static int	counter;
-	static char	*line;
+	int			counter;
+	char		*line;
 	static char	*stash = NULL;
 
 	if (BUFFER_SIZE == 0)
@@ -27,9 +27,9 @@ char	*get_next_line(int fd)
 char	*read_and_fill_stash(int fd, char *stash)
 {
 	static char		tmp[BUFFER_SIZE + 1];
-	static int		counter;
+	int				counter;
 
-	while (ft_find_newline(tmp) < 0)
+	while (ft_find_newline(tmp) != 1)
 	{
 		counter = read(fd, tmp, BUFFER_SIZE);
 		tmp[BUFFER_SIZE + 1] = '\0';
@@ -66,6 +66,7 @@ int	main(void)
 		printf("--> %s\n", str);
 		free (str);
 	}
+	close(fd);
 	return (0);
 }
 
