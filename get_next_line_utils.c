@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:05 by vsozonof          #+#    #+#             */
-/*   Updated: 2022/12/13 11:01:29 by vsozonof         ###   ########.fr       */
+/*   Updated: 2022/12/14 15:17:09 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,35 +60,22 @@ int	ft_find_newline(char *s)
 	while (s[++i])
 	{
 		if (s[i] == '\n')
-			return (1);
+			return (i);
 	}
 	return (0);
 }
 
-// int	ft_len_checker(const char *s, unsigned int start, size_t len)
-// {
-// 	size_t	i;
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t		i;
+	char		*str;
 
-// 	i = -1;
-// 	while (++i < len && s[start])
-// 		start++;
-// 	return (i);
-// }
-
-// char	*ft_substr(char const *s, unsigned int start, size_t len)
-// {
-// 	size_t		i;
-// 	char		*str;
-
-// 	if (!(s) || len == 0 || start > ft_strlen(s))
-// 		return (ft_strdup(""));
-// 	len = ft_len_checker(s, start, len);
-// 	str = malloc(sizeof(char) * len + 1);
-// 	if (!(str))
-// 		return (NULL);
-// 	i = -1;
-// 	while (++i < len && (start + i) < ft_strlen(s))
-// 		str[i] = s[start + i];
-// 	str[i] = '\0';
-// 	return (str);
-// }
+	str = malloc(sizeof(char) * len + 1);
+	if (!(str))
+		return (NULL);
+	i = -1;
+	while (++i < len && (start + i) < ft_strlen(s))
+		str[i] = s[start + i];
+	str[i] = '\0';
+	return (str);
+}
