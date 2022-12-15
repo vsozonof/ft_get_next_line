@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:00 by vsozonof          #+#    #+#             */
-/*   Updated: 2022/12/14 15:16:52 by vsozonof         ###   ########.fr       */
+/*   Updated: 2022/12/15 12:22:11 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*stash = NULL;
 
-	if (BUFFER_SIZE == 0)
+	if (BUFFER_SIZE == 0 || fd < 0)
 		return (NULL);
 	line = read_and_fill_stash(fd, stash);
+	if (!line)
+		return (NULL);
 	return (line);
 }
 
@@ -34,6 +36,8 @@ char	*read_and_fill_stash(int fd, char *stash)
 		counter = read(fd, tmp, BUFFER_SIZE);
 		tmp[BUFFER_SIZE + 1] = '\0';
 		stash = free_and_join_stash(stash, tmp);
+		if (!stash)
+			return (NULL);
 	}
 	return (stash);
 }
@@ -43,6 +47,8 @@ char	*free_and_join_stash(char *stash, char *tmp)
 	char	*new_stash;
 
 	new_stash = ft_strjoin(stash, tmp);
+	if (!new_stash)
+		return (NULL);	
 	free (stash);
 	return (new_stash);
 }
@@ -59,9 +65,17 @@ int	main(void)
 
 	fd = open("test", O_RDWR);
 	str = get_next_line(fd);
-		printf("--> %s\n", str);
-		free (str);
-
+	printf("--> %s\n", str);
+	free (str);
+	str = get_next_line(fd);
+	printf("--> %s\n", str);
+	free (str);
+str = get_next_line(fd);
+	printf("--> %s\n", str);
+	free (str);
+	str = get_next_line(fd);
+	printf("--> %s\n", str);
+	free (str);
 	// while (42)
 	// {
 	// 	str = get_next_line(fd);
