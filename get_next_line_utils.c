@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:05 by vsozonof          #+#    #+#             */
-/*   Updated: 2022/12/14 15:17:09 by vsozonof         ###   ########.fr       */
+/*   Updated: 2022/12/15 14:00:12 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!(s1) && !(s2))
 		return (NULL);
 	len = (ft_strlen(s1) + ft_strlen(s2));
+	if (len == 0)
+		return (NULL);
 	str = malloc(sizeof(char) * len + 1);
 	if (!(str))
 		return (NULL);

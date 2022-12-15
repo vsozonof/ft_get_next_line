@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:00 by vsozonof          #+#    #+#             */
-/*   Updated: 2022/12/15 12:22:11 by vsozonof         ###   ########.fr       */
+/*   Updated: 2022/12/15 14:28:55 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char	*get_next_line(int fd)
 {
-	int			counter;
 	char		*line;
 	static char	*stash = NULL;
 
@@ -31,12 +30,13 @@ char	*read_and_fill_stash(int fd, char *stash)
 	char		tmp[BUFFER_SIZE + 1];
 	int			counter;
 
-	while (ft_find_newline(stash) == 0)
+	counter = 1;
+	while (ft_find_newline(stash) == 0 && counter > 0)
 	{
 		counter = read(fd, tmp, BUFFER_SIZE);
-		tmp[BUFFER_SIZE + 1] = '\0';
+		tmp[counter] = '\0';
 		stash = free_and_join_stash(stash, tmp);
-		if (!stash)
+		if (!stash || stash[0] == '\0')
 			return (NULL);
 	}
 	return (stash);
@@ -47,8 +47,6 @@ char	*free_and_join_stash(char *stash, char *tmp)
 	char	*new_stash;
 
 	new_stash = ft_strjoin(stash, tmp);
-	if (!new_stash)
-		return (NULL);	
 	free (stash);
 	return (new_stash);
 }
@@ -58,35 +56,23 @@ char	*free_and_join_stash(char *stash, char *tmp)
 
 // }
 
-int	main(void)
-{
-	int		fd;
-	char	*str;
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*str;
 
-	fd = open("test", O_RDWR);
-	str = get_next_line(fd);
-	printf("--> %s\n", str);
-	free (str);
-	str = get_next_line(fd);
-	printf("--> %s\n", str);
-	free (str);
-str = get_next_line(fd);
-	printf("--> %s\n", str);
-	free (str);
-	str = get_next_line(fd);
-	printf("--> %s\n", str);
-	free (str);
-	// while (42)
-	// {
-	// 	str = get_next_line(fd);
-	// 	if (str == NULL)
-	// 		break ;
-	// 	printf("--> %s\n", str);
-	// 	free (str);
-	// }
-	close(fd);
-	return (0);
-}
+// 	fd = open("test", O_RDWR);
+// 	while (42)
+// 	{
+// 		str = get_next_line(fd);
+// 		printf("--> %s\n", str);
+// 		free (str);
+// 		if (str == NULL)
+// 			break ;
+// 	}
+// 	close(fd);
+// 	return (0);
+// }
 
 /* 		
 		/!\ GNL main /!\
