@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:00 by vsozonof          #+#    #+#             */
-/*   Updated: 2022/12/17 10:09:26 by vsozonof         ###   ########.fr       */
+/*   Updated: 2022/12/21 19:05:16 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ char	*get_next_line(int fd)
 
 	if (BUFFER_SIZE == 0 || fd < 0)
 		return (NULL);
-	line = read_and_fill_stash(fd, stash, line);
+	line = read_and_fill_stash(fd, stash);
 	if (!line)
 		return (NULL);
 	return (line);
 }
 
-char	*read_and_fill_stash(int fd, char *stash, char *line)
+char	*read_and_fill_stash(int fd, char *stash)
 {
 	char		tmp[BUFFER_SIZE + 1];
 	int			counter;
@@ -39,17 +39,15 @@ char	*read_and_fill_stash(int fd, char *stash, char *line)
 		if (!stash || stash[0] == '\0')
 			return (NULL);
 	}
-	if (stash[ft_strlen(stash)] != '\n' && stash[ft_strlen(stash) + 1] != '\0')
-	{
-		extract_from_stash(stash, tmp);
-	}
-	counter = ft_strlen(stash);
-	printf("%c\n %c\n", stash[counter], stash[counter + 1]);
-	return (stash);
+	if (stash[ft_find_newline(stash)] == '\n'
+		&& stash[ft_find_newline(stash) + 1] != '\0')
+		extract_from_stash(stash);
+	else
+		return (stash);
 }
 
 char	*free_and_join_stash(char *stash, char *tmp)
-{ 
+{
 	char	*new_stash;
 
 	new_stash = ft_strjoin(stash, tmp);
@@ -57,9 +55,12 @@ char	*free_and_join_stash(char *stash, char *tmp)
 	return (new_stash);
 }
 
-char	*extract_from_stash(char *stash, char *tmp)
+char	*extract_from_stash(char *stash)
 {
-	printf("je rentre la\n");
+	char	*new_stash;
+	char	*line;
+
+
 }
 
 int	main(void)
