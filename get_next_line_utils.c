@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:05 by vsozonof          #+#    #+#             */
-/*   Updated: 2022/12/15 14:00:12 by vsozonof         ###   ########.fr       */
+/*   Updated: 2022/12/24 16:19:59 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	ft_find_newline(char *s)
 	return (0);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	size_t		i;
 	char		*str;
