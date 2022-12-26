@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:00 by vsozonof          #+#    #+#             */
-/*   Updated: 2022/12/24 16:47:04 by vsozonof         ###   ########.fr       */
+/*   Updated: 2022/12/26 16:56:18 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,21 @@
 
 char	*get_next_line(int fd)
 {
-	char		*line;
-	static char	*stash = NULL;
+	char			*line;
+	static char		*stash;
 
+	line = NULL;
 	if (BUFFER_SIZE == 0 || fd < 0)
 		return (NULL);
-	line = read_and_fill_stash(fd, stash, line);
+	stash = read_and_fill_stash(fd, stash);
+	line = get_line(stash);
+	stash = extract_from_stash(stash);
 	if (!line)
 		return (NULL);
 	return (line);
 }
 
-char	*read_and_fill_stash(int fd, char *stash, char *line)
+char	*read_and_fill_stash(int fd, char *stash)
 {
 	char		tmp[BUFFER_SIZE + 1];
 	int			counter;
@@ -39,14 +42,7 @@ char	*read_and_fill_stash(int fd, char *stash, char *line)
 		if (!stash || stash[0] == '\0')
 			return (NULL);
 	}
-	if (stash[ft_find_newline(stash)] == '\n'
-		&& stash[ft_find_newline(stash) + 1] != '\0')
-	{
-		line = extract_from_stash(stash);
-		return (line);
-	}
-	else
-		return (stash);
+	return (stash);
 }
 
 char	*free_and_join_stash(char *stash, char *tmp)
@@ -60,15 +56,28 @@ char	*free_and_join_stash(char *stash, char *tmp)
 
 char	*extract_from_stash(char *stash)
 {
-	char	*str;
 	char	*new_stash;
 
-	str = ft_substr(stash, 0, ft_find_newline(stash));
 	new_stash = ft_substr(stash, ft_find_newline(stash) + 1,
 			(ft_strlen(stash) - ft_find_newline(stash)));
 	free(stash);
-	stash = new_stash;
-	return (str);
+	return (new_stash);
+}
+
+char	*get_line(char *stash)
+{
+	char	*new_line;
+
+	if (ft_find_newline(stash) == 0 && stash[ft_strlen(stash)] != '\n')
+	{	
+		new_line = ft_substr(stash, 0, ft_strlen(stash));
+		// free(stash);
+	}
+	else if (ft_find_newline(stash) > 0)
+		new_line = ft_substr(stash, 0, ft_find_newline(stash));
+	else
+		return (NULL);
+	return (new_line);
 }
 
 int	main(void)
@@ -77,18 +86,36 @@ int	main(void)
 	char	*str;
 
 	fd = open("test", O_RDWR);
-	// str = get_next_line(fd);
-	// 	printf("--> %s\n\n", str);
+	str = get_next_line(fd);
+	printf("--> %s\n\n", str);
+	free (str);
+	str = get_next_line(fd);
+	printf("--> %s\n\n", str);
+	free (str);
+	str = get_next_line(fd);
+	printf("--> %s\n\n", str);
+	free (str);
+	str = get_next_line(fd);
+	printf("--> %s\n\n", str);
+	free (str);
+	str = get_next_line(fd);
+	printf("--> %s\n\n", str);
+	free (str);
+	str = get_next_line(fd);
+	printf("--> %s\n\n", str);
+	free (str);
+	str = get_next_line(fd);
+	printf("--> %s\n\n", str);
+	free (str);
+	
+	// while (42)
+	// {
+	// 	str = get_next_line(fd);
+	// 	printf("--> %s\n", str);
 	// 	free (str);
-		
-	while (42)
-	{
-		str = get_next_line(fd);
-		printf("--> %s\n", str);
-		free (str);
-		if (str == NULL)
-			break ;
-	}
+	// 	if (str == NULL)
+	// 		break ;
+	// }
 	close(fd);
 	return (0);
 }

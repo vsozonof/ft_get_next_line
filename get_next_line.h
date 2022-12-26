@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 13:54:01 by vsozonof          #+#    #+#             */
-/*   Updated: 2022/12/24 15:08:35 by vsozonof         ###   ########.fr       */
+/*   Updated: 2022/12/26 14:16:12 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@
 # include <fcntl.h>
 
 char	*get_next_line(int fd);
-char	*read_and_fill_stash(int fd, char *stash, char *line);
+char	*read_and_fill_stash(int fd, char *stash);
 char	*extract_from_stash(char *stash);
+char	*get_line(char *stash);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*free_and_join_stash(char *stash, char *tmp);
 char	*ft_substr(char *s, unsigned int start, size_t len);
