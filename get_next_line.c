@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:00 by vsozonof          #+#    #+#             */
-/*   Updated: 2022/12/30 17:47:29 by vsozonof         ###   ########.fr       */
+/*   Updated: 2022/12/30 17:52:28 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,42 +75,6 @@ int	main(void)
 	char	*str;
 
 	fd = open("test", O_RDWR);
-	// str = get_next_line(fd);
-	// printf("--> %s\n\n", str);
-	// free (str);
-	// str = get_next_line(fd);
-	// printf("--> %s\n\n", str);
-	// free (str);
-	// str = get_next_line(fd);
-	// printf("--> %s\n\n", str);
-	// free (str);
-	// str = get_next_line(fd);
-	// printf("--> %s\n\n", str);
-	// free (str);
-	// str = get_next_line(fd);
-	// printf("--> %s\n\n", str);
-	// free (str);
-	// str = get_next_line(fd);
-	// printf("--> %s\n\n", str);
-	// free (str);
-	// str = get_next_line(fd);
-	// printf("--> %s\n\n", str);
-	// free (str);
-	// str = get_next_line(fd);
-	// printf("--> %s\n\n", str);
-	// free (str);
-	// str = get_next_line(fd);
-	// printf("--> %s\n\n", str);
-	// free (str);
-	// str = get_next_line(fd);
-	// printf("--> %s\n\n", str);
-	// free (str);
-	// str = get_next_line(fd);
-	// printf("--> %s\n\n", str);
-	// free (str);
-	// str = get_next_line(fd);
-	// printf("--> %s\n\n", str);
-	// free (str);
 	while (42)
 	{
 		str = get_next_line(fd);
