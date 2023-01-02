@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:05 by vsozonof          #+#    #+#             */
-/*   Updated: 2022/12/26 11:57:52 by vsozonof         ###   ########.fr       */
+/*   Updated: 2023/01/02 18:18:12 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,9 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 		str[i] = s[start + i];
 	str[i] = '\0';
 	return (str);
+}
+
+int	ft_is_last_line(char *s)
+{
+	
 }

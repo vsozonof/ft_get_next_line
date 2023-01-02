@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:00 by vsozonof          #+#    #+#             */
-/*   Updated: 2022/12/30 17:52:28 by vsozonof         ###   ########.fr       */
+/*   Updated: 2023/01/02 21:23:42 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ char	*get_next_line(int fd)
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
 	stash = read_and_fill_stash(fd, stash);
+	// printf("GNL  --> %s", stash);
 	line = get_line(stash);
+	// printf("GNL  --> %s\n", line);
 	stash = extract_from_stash(stash);
 	return (line);
 }
@@ -56,6 +58,7 @@ char	*extract_from_stash(char *stash)
 	new_stash = ft_substr(stash, ft_find_newline(stash) + 1,
 			(ft_strlen(stash) - ft_find_newline(stash)));
 	free(stash);
+	printf("new_stash = %s\n", new_stash);
 	return (new_stash);
 }
 
@@ -78,7 +81,7 @@ int	main(void)
 	while (42)
 	{
 		str = get_next_line(fd);
-		printf("--> %s\n", str);
+		// printf("main --> %s\n", str);
 		free (str);
 		if (str == NULL)
 			break ;
