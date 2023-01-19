@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:00 by vsozonof          #+#    #+#             */
-/*   Updated: 2023/01/02 21:23:42 by vsozonof         ###   ########.fr       */
+/*   Updated: 2023/01/19 04:26:54 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ char	*get_next_line(int fd)
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
 	stash = read_and_fill_stash(fd, stash);
-	// printf("GNL  --> %s", stash);
+	if (!stash)
+		return (NULL);
 	line = get_line(stash);
-	// printf("GNL  --> %s\n", line);
 	stash = extract_from_stash(stash);
 	return (line);
 }
@@ -36,6 +36,8 @@ char	*read_and_fill_stash(int fd, char *stash)
 	while (ft_find_newline(stash) == 0 && counter != 0)
 	{
 		counter = read(fd, tmp, BUFFER_SIZE);
+		if (counter == -1)
+			return (NULL);
 		tmp[counter] = '\0';
 		stash = free_and_join_stash(stash, tmp);
 	}
@@ -54,11 +56,14 @@ char	*free_and_join_stash(char *stash, char *tmp)
 char	*extract_from_stash(char *stash)
 {
 	char	*new_stash;
+	int		len;
 
-	new_stash = ft_substr(stash, ft_find_newline(stash) + 1,
-			(ft_strlen(stash) - ft_find_newline(stash)));
+	len = (ft_strlen(stash) - ft_find_newline(stash));
+	if (!stash || ft_find_newline(stash) == 0)
+		return (NULL);
+	else
+		new_stash = ft_substr(stash, ft_find_newline(stash) + 1, len);
 	free(stash);
-	printf("new_stash = %s\n", new_stash);
 	return (new_stash);
 }
 
@@ -68,50 +73,33 @@ char	*get_line(char *stash)
 
 	if (!stash)
 		return (NULL);
-	new_line = ft_substr(stash, 0, ft_find_newline(stash));
+	if (ft_find_newline(stash) > 0)
+		new_line = ft_substr(stash, 0, ft_find_newline(stash));
+	else
+		new_line = ft_substr(stash, 0, ft_strlen(stash) + 1);
 	return (new_line);
 }
 
-int	main(void)
-{
-	int		fd;
-	char	*str;
+// 		/!\ GNL main /!\
+// 	Comment utiliser la fonction :
 
-	fd = open("test", O_RDWR);
-	while (42)
-	{
-		str = get_next_line(fd);
-		// printf("main --> %s\n", str);
-		free (str);
-		if (str == NULL)
-			break ;
-	}
-	close(fd);
-	return (0);
-}
+// 	- remplacer "test.c" pa le nom du fichier
+// 	que vous souhaitez lire
 
-/* 		
-		/!\ GNL main /!\
-	Comment utiliser la fonction :
+// 	- Compiler avec la commande suivante : 
+// 	"gcc -D BUFFER_SIZE=N get_next_line.c get_next_line_utils.c"
 
-	- remplacer "test.c" pa le nom du fichier
-	que vous souhaitez lire
+// 	-> 'n' sera le nombre qui servira a definir la taille de buffer
+// 	a utiliser
 
-	- Compiler avec la commande suivante : 
-	"gcc -D BUFFER_SIZE=N get_next_line.c get_next_line_utils.c"
-
-	-> 'n' sera le nombre qui servira a definir la taille de buffer
-	a utiliser
-
-	-> la taille de buffer par defaut est 0.	
-*/
+// 	-> la taille de buffer par defaut est 0.	
 
 // int	main(void)
 // {
 // 	int		fd;
 // 	char	*str;
 
-// 	fd = open("test.c", O_RDWR);
+// 	fd = open("test", O_RDWR);
 // 	while (42)
 // 	{
 // 		str = get_next_line(fd);
