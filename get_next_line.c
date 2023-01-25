@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:00 by vsozonof          #+#    #+#             */
-/*   Updated: 2023/01/19 04:50:37 by vsozonof         ###   ########.fr       */
+/*   Updated: 2023/01/25 06:21:31 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,22 @@ char	*get_next_line(int fd)
 
 char	*read_and_fill_stash(int fd, char *stash)
 {
-	char		tmp[BUFFER_SIZE + 1];
+	char		*tmp;
 	int			counter;
 
 	counter = 1;
 	while (ft_find_newline(stash) == 0 && counter != 0)
 	{
+		tmp = malloc(sizeof(char) * BUFFER_SIZE + 1);
 		counter = read(fd, tmp, BUFFER_SIZE);
 		if (counter == -1)
+		{
+			free(tmp);
 			return (NULL);
+		}
 		tmp[counter] = '\0';
 		stash = free_and_join_stash(stash, tmp);
+		free(tmp);
 	}
 	return (stash);
 }
@@ -60,7 +65,10 @@ char	*extract_from_stash(char *stash)
 
 	len = (ft_strlen(stash) - ft_find_newline(stash));
 	if (!stash || ft_find_newline(stash) == 0)
+	{
+		free(stash);
 		return (NULL);
+	}
 	else
 		new_stash = ft_substr(stash, ft_find_newline(stash) + 1, len);
 	free(stash);
