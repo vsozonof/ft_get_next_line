@@ -6,7 +6,7 @@
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:00 by vsozonof          #+#    #+#             */
-/*   Updated: 2023/01/19 04:26:54 by vsozonof         ###   ########.fr       */
+/*   Updated: 2023/01/19 04:50:37 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*get_line(char *stash)
 	return (new_line);
 }
 
-// 		/!\ GNL main /!\
+// 		 GNL main 
 // 	Comment utiliser la fonction :
 
 // 	- remplacer "test.c" pa le nom du fichier
@@ -94,19 +94,20 @@ char	*get_line(char *stash)
 
 // 	-> la taille de buffer par defaut est 0.	
 
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*str;
+int	main(void)
+{
+	int		fd;
+	char	*str;
 
-// 	fd = open("test", O_RDWR);
-// 	while (42)
-// 	{
-// 		str = get_next_line(fd);
-// 		if (str == NULL)
-// 			break ;
-// 		printf("%s\n", str);
-// 		free (str);
-// 	}
-// 	return (0);
-// }
+	fd = open("test", O_RDWR);
+	while (42)
+	{
+		str = get_next_line(fd);
+		printf("main --> %s\n", str);
+		free (str);
+		if (str == NULL)
+			break ;
+	}
+	close(fd);
+	return (0);
+}
