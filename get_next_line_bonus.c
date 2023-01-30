@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsozonof <vsozonof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 14:02:00 by vsozonof          #+#    #+#             */
-/*   Updated: 2023/01/30 08:19:41 by vsozonof         ###   ########.fr       */
+/*   Updated: 2023/01/30 08:26:52 by vsozonof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
 {
 	char			*line;
-	static char		*stash;
+	static char		*stash[FOPEN_MAX];
 
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
-	stash = read_and_fill_stash(fd, stash);
-	if (!stash)
+	stash[fd] = read_and_fill_stash(fd, stash[fd]);
+	if (!stash[fd])
 		return (NULL);
-	line = get_line(stash);
-	stash = extract_from_stash(stash);
+	line = get_line(stash[fd]);
+	stash[fd] = extract_from_stash(stash[fd]);
 	return (line);
 }
 
@@ -104,18 +104,30 @@ char	*get_line(char *stash)
 
 // int	main(void)
 // {
-// 	int		fd;
+// 	int		fd1;
+// 	int		fd2;
+// 	int		fd3;
 // 	char	*str;
 
-// 	fd = open("test", O_RDWR);
+// 	fd1 = open("test", O_RDWR);
+// 	fd2 = open("test2", O_RDWR);
+// 	fd3 = open("test3", O_RDWR);
 // 	while (42)
 // 	{
-// 		str = get_next_line(fd);
-// 		printf("main --> %s", str);
+// 		str = get_next_line(fd1);
+// 		printf("main FD1 --> %s", str);
+// 		free (str);
+// 		str = get_next_line(fd2);
+// 		printf("main FD2 --> %s", str);
+// 		free (str);
+// 		str = get_next_line(fd3);
+// 		printf("main FD3 --> %s", str);
 // 		free (str);
 // 		if (str == NULL)
 // 			break ;
 // 	}
-// 	close(fd);
+// 	close(fd1);
+// 	close(fd2);
+// 	close(fd3);
 // 	return (0);
 // }
