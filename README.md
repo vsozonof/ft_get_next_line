@@ -1,5 +1,3 @@
-# ft_get_next_line
+# ft_get_next_line validé
 
-Projet validé
-
-![image](https://user-images.githubusercontent.com/113908576/224156058-b9916eaa-41ff-4bdd-8f56-0735f1864c8a.png)
+[![vsozonof's 42 get_next_line Score](https://badge42.vercel.app/api/v2/clgon9kgc004908jnt6ztthtp/project/2904037)](https://github.com/JaeSeoKim/badge42)
